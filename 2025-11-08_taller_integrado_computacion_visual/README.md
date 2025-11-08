@@ -1,7 +1,7 @@
 
 # Taller Integral de Computación Visual
 
-## 🌐 5. Visualización de imágenes y video 360°
+## 5. Visualización de imágenes y video 360°
 
 ### 🎯 Concepto
 
@@ -51,9 +51,9 @@ Coloca tus archivos multimedia en `/public`:
 
 ---
 
-### 📸 Evidencia gráfica (sugerida)
+### 📸 Evidencia gráfica
 
-![Video actividad 5](/media/actividad-5/actividad_5.gif)
+![Video actividad 5](/2025-11-08_taller_integrado_computacion_visual/media/actividad-5/actividad_5.gif)
 
 ---
 
@@ -123,9 +123,9 @@ elif gesture == 'FIST':
 
 ---
 
-### 📸 Evidencia gráfica (sugerida)
+### 📸 Evidencia gráfica
 
-![Video actividad 7](/media/actividad-7/actividad_7.gif)
+![Video actividad 7](/2025-11-08_taller_integrado_computacion_visual/media/actividad-7/actividad_7.gif)
 
 ---
 
@@ -195,9 +195,8 @@ if 'color' in text:
 
 ---
 
-### 📸 Evidencia gráfica (sugerida)
-
-![Video actividad 9](/media/actividad-9/actividad_9.gif)
+### 📸 Evidencia gráfica
+![Video actividad 9](/2025-11-08_taller_integrado_computacion_visual/media/actividad-9/actividad_9.gif)
 
 ---
 
