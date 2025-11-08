@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>🎮 Ejercicio 6: Entrada e Interacción</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000511;
+      color: #ffffff;
+    }
+
+    #c {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ui-panel {
+      position: fixed;
+      background: rgba(0, 5, 17, 0.9);
+      border: 2px solid #00d1b2;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(0, 209, 178, 0.3);
+      backdrop-filter: blur(10px);
+      font-size: 14px;
+      z-index: 100;
+    }
+
+    .ui-left {
+      top: 20px;
+      left: 20px;
+      width: 280px;
+    }
+
+    .ui-right {
+      top: 20px;
+      right: 20px;
+      width: 250px;
+    }
+
+    .ui-bottom {
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      text-align: center;
+    }
+
+    .ui-section {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 209, 178, 0.2);
+    }
+
+    .ui-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .ui-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #00d1b2;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #00d1b2, #00a8ff);
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      margin: 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 209, 178, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 209, 178, 0.3);
+    }
+
+    .btn.active {
+      background: linear-gradient(45deg, #ff6b6b, #ffa726);
+      box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+    }
+
+    .slider-container {
+      margin: 8px 0;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: #a0a0a0;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #333;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #00d1b2, #00a8ff);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 209, 178, 0.5);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 11px;
+    }
+
+    .status-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px;
+      border-radius: 4px;
+      border-left: 3px solid #00d1b2;
+    }
+
+    .status-value {
+      font-weight: bold;
+      color: #00d1b2;
+    }
+
+    .keyboard-hints {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px;
+      font-size: 10px;
+    }
+
+    .key-hint {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 6px;
+      border-radius: 3px;
+      text-align: center;
+      border: 1px solid rgba(0, 209, 178, 0.3);
+    }
+
+    .touch-zone {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 120px;
+      height: 120px;
+      background: rgba(0, 209, 178, 0.1);
+      border: 2px solid #00d1b2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .collision-indicator {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background: rgba(255, 107, 107, 0.9);
+      padding: 10px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .collision-indicator.active {
+      opacity: 1;
+      animation: pulse 0.5s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.2); }
+      100% { transform: translateY(-50%) scale(1); }
+    }
+
+    .fps-counter {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #00d1b2;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas principal -->
+  <canvas id="c"></canvas>
+
+  <!-- Contador FPS -->
+  <div class="fps-counter">
+    FPS: <span id="fps">60</span>
+  </div>
+
+  <!-- Panel de controles izquierdo -->
+  <div class="ui-panel ui-left">
+    <!-- Controles de iluminación -->
+    <div class="ui-section">
+      <div class="ui-title">💡 Iluminación</div>
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Intensidad</span>
+          <span id="light-intensity-value">1.0</span>
+        </div>
+        <input type="range" id="light-intensity" min="0" max="3" step="0.1" value="1.0">
+      </div>
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Color Hue</span>
+          <span id="light-hue-value">0</span>
+        </div>
+        <input type="range" id="light-hue" min="0" max="360" step="10" value="0">
+      </div>
+    </div>
+
+    <!-- Controles de cámara -->
+    <div class="ui-section">
+      <div class="ui-title">📷 Cámara</div>
+      <button class="btn" id="camera-reset">Reset Posición</button>
+      <button class="btn" id="camera-auto">Auto Rotación</button>
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Velocidad</span>
+          <span id="camera-speed-value">1.0</span>
+        </div>
+        <input type="range" id="camera-speed" min="0.1" max="3" step="0.1" value="1.0">
+      </div>
+    </div>
+
+    <!-- Efectos visuales -->
+    <div class="ui-section">
+      <div class="ui-title">✨ Efectos</div>
+      <button class="btn" id="effect-explosion">💥 Explosión</button>
+      <button class="btn" id="effect-wave">🌊 Onda</button>
+      <button class="btn" id="effect-rainbow">🌈 Arcoíris</button>
+      <button class="btn" id="effect-gravity">🌍 Gravedad</button>
+    </div>
+  </div>
+
+  <!-- Panel de información derecho -->
+  <div class="ui-panel ui-right">
+    <!-- Estado del sistema -->
+    <div class="ui-section">
+      <div class="ui-title">📊 Estado Sistema</div>
+      <div class="status-grid">
+        <div class="status-item">
+          Objetos: <span class="status-value" id="object-count">0</span>
+        </div>
+        <div class="status-item">
+          Colisiones: <span class="status-value" id="collision-count">0</span>
+        </div>
+        <div class="status-item">
+          Mouse X: <span class="status-value" id="mouse-x">0</span>
+        </div>
+        <div class="status-item">
+          Mouse Y: <span class="status-value" id="mouse-y">0</span>
+        </div>
+        <div class="status-item">
+          Última tecla: <span class="status-value" id="last-key">-</span>
+        </div>
+        <div class="status-item">
+          Touch activo: <span class="status-value" id="touch-active">No</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configuraciones de colisión -->
+    <div class="ui-section">
+      <div class="ui-title">🎯 Colisiones</div>
+      <button class="btn" id="collision-mode">Modo: Click</button>
+      <button class="btn" id="add-object">➕ Agregar Cubo</button>
+      <button class="btn" id="clear-objects">🗑️ Limpiar</button>
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Sensibilidad</span>
+          <span id="collision-sensitivity-value">1.0</span>
+        </div>
+        <input type="range" id="collision-sensitivity" min="0.1" max="2" step="0.1" value="1.0">
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel inferior con controles -->
+  <div class="ui-panel ui-bottom">
+    <div class="ui-title">⌨️ Controles de Teclado</div>
+    <div class="keyboard-hints">
+      <div class="key-hint">W/A/S/D - Mover</div>
+      <div class="key-hint">Q/E - Subir/Bajar</div>
+      <div class="key-hint">R - Reset</div>
+      <div class="key-hint">SPACE - Saltar</div>
+      <div class="key-hint">1/2/3/4 - Efectos</div>
+      <div class="key-hint">F - Pantalla Completa</div>
+      <div class="key-hint">ESC - Menú</div>
+      <div class="key-hint">TAB - Cambiar Objeto</div>
+      <div class="key-hint">CTRL - Acelerar</div>
+    </div>
+  </div>
+
+  <!-- Zona de touch -->
+  <div class="touch-zone" id="touch-zone">
+    🤚<br>Touch<br>Zone
+  </div>
+
+  <!-- Indicador de colisión -->
+  <div class="collision-indicator" id="collision-indicator">
+    💥
+  </div>
+
+  <!-- Import maps para Three.js -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.161.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+  </script>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

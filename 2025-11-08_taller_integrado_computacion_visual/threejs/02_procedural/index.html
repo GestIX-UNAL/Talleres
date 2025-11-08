@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modelado Procedural - Three.js</title>
+  
+  <!-- Import Map para resolver módulos Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+      "three/examples/jsm/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+    }
+  }
+  </script>
+  
+  <style>
+    body,html{margin:0;height:100%;overflow:hidden;font-family:monospace}
+    #ui{position:fixed;top:10px;left:10px;background:rgba(0,0,0,0.8);color:white;padding:15px;border-radius:8px;font-size:12px}
+    .controls{margin:10px 0;}
+    .mode-btn{background:#333;color:white;border:1px solid #666;padding:5px 10px;margin:2px;cursor:pointer;border-radius:3px}
+    .mode-btn:hover{background:#555}
+    .mode-btn.active{background:#007acc}
+  </style>
+</head>
+<body>
+  <div id="ui"></div>
+  <canvas id="c"></canvas>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

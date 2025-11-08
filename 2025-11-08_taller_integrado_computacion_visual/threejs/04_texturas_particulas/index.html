@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Texturas Dinámicas y Partículas - Three.js</title>
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      background: #000;
+    }
+    
+    #ui {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      max-width: 350px;
+      border: 1px solid #333;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+    
+    h2, h3 {
+      margin: 0 0 12px 0;
+      color: #ff6600;
+    }
+    
+    .control-group {
+      margin-bottom: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid #444;
+    }
+    
+    .control-group:last-child {
+      border-bottom: none;
+    }
+    
+    .material-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    
+    .btn {
+      background: #333;
+      color: white;
+      border: 1px solid #666;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .btn:hover {
+      background: #555;
+      border-color: #888;
+    }
+    
+    .btn.active {
+      background: #ff6600;
+      border-color: #ff8800;
+      box-shadow: 0 0 10px rgba(255, 102, 0, 0.4);
+    }
+    
+    .event-btn {
+      background: #006600;
+      width: 100%;
+      margin: 5px 0;
+      font-weight: bold;
+    }
+    
+    .event-btn:hover {
+      background: #008800;
+    }
+    
+    .param-group {
+      margin: 8px 0;
+    }
+    
+    .param-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #ccc;
+      font-size: 11px;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      margin: 5px 0;
+    }
+    
+    .status {
+      font-size: 11px;
+      color: #888;
+      margin-top: 10px;
+    }
+    
+    .instructions {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #444;
+    }
+    
+    .instructions ul {
+      margin: 5px 0;
+      padding-left: 15px;
+    }
+    
+    .instructions li {
+      margin: 2px 0;
+    }
+    
+    .instructions strong {
+      color: #ff6600;
+    }
+  </style>
+  
+  <!-- Import Map para Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+      "three/examples/jsm/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="ui">
+    <h2>🎨 Texturas Dinámicas & Partículas</h2>
+    
+    <div class="control-group">
+      <h3>Materiales Reactivos</h3>
+      <div class="material-buttons">
+        <button class="btn active" data-material="emissive">1. Emissive</button>
+        <button class="btn" data-material="normal">2. Normal</button>
+        <button class="btn" data-material="uv">3. UV Offset</button>
+        <button class="btn" data-material="noise">4. Noise</button>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <h3>Eventos Coordinados</h3>
+      <button class="btn event-btn" id="explosion">💥 Explosión</button>
+      <button class="btn event-btn" id="wave">🌊 Onda de Shock</button>
+      <button class="btn event-btn" id="pulse">⚡ Pulso Energético</button>
+      <button class="btn event-btn" id="storm">⛈️ Tormenta</button>
+    </div>
+    
+    <div class="control-group">
+      <h3>Parámetros</h3>
+      <div class="param-group">
+        <label>Intensidad: <span id="intensity-value">1.0</span></label>
+        <input type="range" id="intensity" min="0.1" max="3.0" step="0.1" value="1.0">
+      </div>
+      <div class="param-group">
+        <label>Velocidad: <span id="speed-value">1.0</span></label>
+        <input type="range" id="speed" min="0.1" max="5.0" step="0.1" value="1.0">
+      </div>
+    </div>
+    
+    <div class="status">
+      <div>Material: <span id="current-material">Emissive Dinámico</span></div>
+      <div>Partículas: <span id="particle-count">0</span></div>
+      <div>FPS: <span id="fps">60</span></div>
+    </div>
+    
+    <div class="instructions">
+      <strong>⌨️ Controles:</strong>
+      <ul>
+        <li><strong>1-4:</strong> Cambiar material</li>
+        <li><strong>E:</strong> Explosión</li>
+        <li><strong>W:</strong> Onda</li>
+        <li><strong>Q:</strong> Pulso</li>
+        <li><strong>S:</strong> Tormenta</li>
+        <li><strong>Mouse:</strong> Interactuar</li>
+      </ul>
+    </div>
+  </div>
+  
+  <canvas id="c"></canvas>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
