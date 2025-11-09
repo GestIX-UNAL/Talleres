@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Proyecciones: Perspectiva vs Ortográfica</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #101018
+        }
+
+        #hud {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font: 13px/1.4 monospace;
+            background: #0008;
+            padding: 8px;
+            border-radius: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hud">
+        Teclas: [C] alterna cámara (persp/orto) · [D] mapa de profundidad on/off
+    </div>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+          }
+        }
+      </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; 
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(innerWidth, innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x101018);
+
+        // Luces
+        const dir = new THREE.DirectionalLight(0xffffff, 1.2); dir.position.set(4, 6, 5);
+        scene.add(dir, new THREE.AmbientLight(0x404040));
+
+        // Geometría
+        const mesh = new THREE.Mesh(
+            new THREE.TorusKnotGeometry(1, 0.35, 200, 32),
+            new THREE.MeshStandardMaterial({ metalness: 0.25, roughness: 0.35, color: 0x4aa3ff })
+        );
+        scene.add(mesh);
+        const plane = new THREE.Mesh(
+            new THREE.PlaneGeometry(20, 20),
+            new THREE.MeshStandardMaterial({ color: 0x222226, roughness: 1 })
+        );
+        plane.rotation.x = -Math.PI / 2; plane.position.y = -2; scene.add(plane);
+
+        // Cámaras
+        const persp = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 100);
+        persp.position.set(6, 4, 8); persp.lookAt(0, 0, 0);
+
+        const orthoH = 6;
+        const ortho = new THREE.OrthographicCamera(-orthoH * innerWidth / innerHeight, orthoH * innerWidth / innerHeight, orthoH, -orthoH, 0.1, 100);
+        ortho.position.copy(persp.position); ortho.lookAt(0, 0, 0);
+
+        let cam = persp;
+        const ctrlP = new OrbitControls(persp, renderer.domElement);
+        const ctrlO = new OrbitControls(ortho, renderer.domElement);
+
+        // Profundidad
+        const depthMat = new THREE.MeshDepthMaterial();
+        let showDepth = false;
+
+        addEventListener("resize", () => {
+            renderer.setSize(innerWidth, innerHeight);
+            persp.aspect = innerWidth / innerHeight; persp.updateProjectionMatrix();
+            const w = orthoH * innerWidth / innerHeight;
+            ortho.left = -w; ortho.right = w; ortho.top = orthoH; ortho.bottom = -orthoH; ortho.updateProjectionMatrix();
+        });
+
+        addEventListener("keydown", e => {
+            if (e.key.toLowerCase() === "c") { cam = (cam === persp) ? ortho : persp; }
+            if (e.key.toLowerCase() === "d") { showDepth = !showDepth; mesh.material = showDepth ? depthMat : new THREE.MeshStandardMaterial({ metalness: 0.25, roughness: 0.35, color: 0x4aa3ff }); }
+        });
+
+        function loop(t) {
+            mesh.rotation.y = t * 0.0006;
+            renderer.render(scene, cam);
+            requestAnimationFrame(loop);
+        }
+        loop(0);
+    </script>
+</body>
+
+</html>

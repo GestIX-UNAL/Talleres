@@ -6,4 +6,4 @@ En este repositorio se subiran todos los talleres de computación visual del gru
 - Sergio Nova
 - Luis Pedraos
 - Anderson David Morales Chila
-- Freddy
+- Fredy Rosero
