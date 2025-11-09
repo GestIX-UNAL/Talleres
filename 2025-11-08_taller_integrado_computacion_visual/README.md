@@ -138,6 +138,42 @@ Este experimento permitió comprender la **traducción de señales corporales a 
 
 ---
 
+## 8. Reconocimiento de voz y control por comandos
+
+### 🧰 Dependencias e instalación
+```bash
+pip install -r requirements.txt
+```
+---
+### ▶️ Ejecución
+```bash
+python voice_control.py
+```
+Asegúrate de tener un micrófono conectado y configurado correctamente.
+---
+### 🧠 Fragmento clave
+```python
+import speech_recognition as sr
+
+recognizer = sr.Recognizer()
+with sr.Microphone() as source:
+  print("Escuchando...")
+  audio = recognizer.listen(source)
+  try:
+    command = recognizer.recognize_google(audio, language='es-ES')
+    print(f"Comando recibido: {command}")
+  except sr.UnknownValueError:
+    print("No se entendió el audio")
+  except sr.RequestError as e:
+    print(f"Error al conectar con el servicio de reconocimiento: {e}")
+```
+---
+### 💡 Reflexión
+La implementación de reconocimiento de voz permite una interacción más natural y fluida con el sistema.  
+**Aprendizajes:** integración de bibliotecas de reconocimiento de voz y manejo de excepciones.  
+**Retos técnicos:** variabilidad en la calidad del audio y la precisión del reconocimiento.  
+**Mejoras posibles:** agregar soporte para múltiples idiomas y comandos personalizados.
+
 ## 9. Interfaces multimodales (voz + gestos)
 
 ### 🎯 Concepto
@@ -206,3 +242,42 @@ Combinar voz y gestos introduce **sinergia cognitiva** en la interacción hombre
 **Aprendizajes:** uso de hilos para reconocimiento en paralelo, sincronización de eventos y arquitectura multimodal.  
 **Retos técnicos:** latencia en la sincronización voz-gesto y manejo concurrente del micrófono y la cámara.  
 **Mejoras futuras:** integrar un módulo de contexto para aprender patrones de interacción del usuario o comandos personalizados.
+
+## 10. Simulación BCI (EEG sintético y control)
+
+### 🧰 Dependencias e instalación
+```bash
+pip install -r requirements.txt
+```
+---
+### ▶️ Ejecución
+```bash
+python eeg_sim.py
+```
+Asegúrate de tener los permisos necesarios para acceder a los dispositivos de entrada si es necesario.
+---
+### 🧠 Fragmento clave
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulación de señales EEG sintéticas
+def generate_eeg_signal(duration=10, fs=256):
+  t = np.linspace(0, duration, duration * fs)
+  signal = np.sin(2 * np.pi * 10 * t) + np.random.normal(0, 0.5, t.shape)
+  return t, signal
+
+# Visualización de la señal
+t, eeg_signal = generate_eeg_signal()
+plt.plot(t, eeg_signal)
+plt.title('Señal EEG Sintética')
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Amplitud')
+plt.show()
+```
+---
+### 💡 Reflexión
+La simulación de EEG permite explorar patrones de actividad cerebral y su relación con el control de dispositivos.  
+**Aprendizajes:** generación de señales sintéticas y visualización de datos en tiempo real.  
+**Retos técnicos:** modelar adecuadamente la variabilidad de las señales EEG reales.  
+**Mejoras posibles:** integrar datos reales de EEG y aplicar técnicas de procesamiento de señales para análisis más profundos.
