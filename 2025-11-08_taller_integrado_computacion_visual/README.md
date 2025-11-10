@@ -323,7 +323,47 @@ Este experimento permitió comprender la **traducción de señales corporales a 
 **Posibles mejoras:** detección de múltiples manos y uso de modelos de aprendizaje profundo para reconocimiento dinámico de gestos.
 
 ---
+## 8. Reconocimiento de voz y control por comandos
 
+### 🧰 Dependencias e instalación
+```bash
+pip install SpeechRecognition pyaudio pyttsx3 pygame numpy
+```
+---
+### ▶️ Ejecución
+```bash
+python voice_control.py
+```
+Asegúrate de tener un micrófono conectado y configurado correctamente.
+---
+### 🧠 Fragmento clave
+```python
+def asr_worker():
+    while True:
+        audio = audio_q.get()
+        try:
+            # Online (simple y robusto). Si requieres offline, cambia a recognize_sphinx(language="es-ES")
+            text = r.recognize_google(audio, language=LANG).lower().strip()
+            print("Heard:", text)
+            executed = False
+            for key, (op, val) in COMMANDS.items():
+                if key in text:
+                    state.apply(op, val)
+                    say(key)
+                    executed = True
+            if not executed:
+                say("No entendido")
+        except Exception as e:
+            print("ASR error:", e)
+```
+---
+### 💡 Reflexión
+La implementación de reconocimiento de voz permite una interacción más natural y fluida con el sistema.  
+**Aprendizajes:** integración de bibliotecas de reconocimiento de voz, manejo de excepciones y control visual mediante comandos de voz.  
+**Retos técnicos:** variabilidad en la calidad del audio y la precisión del reconocimiento.  
+**Mejoras posibles:** agregar soporte para múltiples idiomas y comandos personalizados.
+
+---
 ## 9. Interfaces multimodales (voz + gestos)
 
 ### 🎯 Concepto
@@ -392,3 +432,100 @@ Combinar voz y gestos introduce **sinergia cognitiva** en la interacción hombre
 **Aprendizajes:** uso de hilos para reconocimiento en paralelo, sincronización de eventos y arquitectura multimodal.  
 **Retos técnicos:** latencia en la sincronización voz-gesto y manejo concurrente del micrófono y la cámara.  
 **Mejoras futuras:** integrar un módulo de contexto para aprender patrones de interacción del usuario o comandos personalizados.
+
+---
+
+## 10. Simulación BCI (EEG sintético y control)
+
+### 🎯 Concepto
+
+Simulación de señales EEG sintéticas que permiten explorar patrones de actividad cerebral y su relación con el control visual.
+
+---
+
+### 🧰 Dependencias e instalación
+
+```bash
+pip install -r requirements.txt
+```
+---
+
+```bash
+pip install numpy scipy pygame
+```
+
+---
+
+### ▶️ Ejecución
+
+```bash
+python eeg_sim.py
+```
+
+Asegúrate de tener los permisos necesarios para acceder a los dispositivos de entrada si es necesario.
+
+---
+
+### 🧠 Fragmento clave
+
+```python
+# -*- coding: utf-8 -*-
+import numpy as np
+from scipy.signal import butter, lfilter, welch
+import pygame, random
+
+# -------- Config EEG --------
+FS = 256                   # Hz
+WIN = 2.5                  # s por ventana
+N  = int(FS*WIN)
+ALPHA = (8,12)
+BETA  = (13,30)
+TH_ALPHA = 2.2             # umbral relativo simple
+TH_BETA  = 2.0
+
+# -------- Síntesis ----------
+def synth_eeg(n, fs, a_amp=1.0, b_amp=0.8, noise=0.4):
+  t = np.arange(n)/fs
+  alpha = a_amp*np.sin(2*np.pi*10*t + np.random.rand()*2*np.pi)
+  beta  = b_amp*np.sin(2*np.pi*20*t + np.random.rand()*2*np.pi)
+  pink  = noise*np.cumsum(np.random.randn(n)); pink /= np.max(np.abs(pink)+1e-6)
+  return alpha + beta + 0.4*pink
+
+# ... (resto del código)
+```
+
+---
+
+### 💡 Reflexión
+
+La simulación de EEG permite explorar patrones de actividad cerebral y su relación con el control de dispositivos.  
+**Aprendizajes:** generación de señales sintéticas y visualización de datos en tiempo real.  
+**Retos técnicos:** modelar adecuadamente la variabilidad de las señales EEG reales.  
+**Mejoras posibles:** integrar datos reales de EEG y aplicar técnicas de procesamiento de señales para análisis más profundos.
+
+## 11. Espacios proyectivos y matrices de proyección
+### 🎯 Concepto
+Simulación de proyecciones en 3D utilizando cámaras perspectiva y ortográfica para visualizar la diferencia entre ambas.
+
+---
+### ⚙️ Funcionalidades principales
+- Alternar entre cámara perspectiva y ortográfica con la tecla `[C]`.  
+- Activar/desactivar el mapa de profundidad con la tecla `[D]`.  
+- Visualización de un objeto 3D (Torus Knot) en un entorno iluminado.
+
+---
+### ▶️ Ejecución
+Abre el archivo HTML en un navegador compatible con WebGL.
+
+---
+### 🧠 Fragmento clave
+```javascript
+const persp = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 100);
+const ortho = new THREE.OrthographicCamera(-orthoH * innerWidth / innerHeight, orthoH * innerWidth / innerHeight, orthoH, -orthoH, 0.1, 100);
+```
+---
+### 💡 Reflexión
+La comparación entre proyecciones perspectiva y ortográfica permite entender cómo afectan la percepción de la profundidad y la escala en entornos 3D.  
+**Aprendizajes:** manejo de diferentes tipos de cámaras en Three.js y su impacto visual.  
+**Retos técnicos:** optimización del rendimiento al alternar entre cámaras.  
+**Mejoras posibles:** agregar más geometrías y efectos visuales para enriquecer la experiencia.
