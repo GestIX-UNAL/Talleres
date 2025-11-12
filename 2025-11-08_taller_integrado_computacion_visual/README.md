@@ -357,11 +357,18 @@ def asr_worker():
             print("ASR error:", e)
 ```
 ---
+
 ### 💡 Reflexión
+
 La implementación de reconocimiento de voz permite una interacción más natural y fluida con el sistema.  
 **Aprendizajes:** integración de bibliotecas de reconocimiento de voz, manejo de excepciones y control visual mediante comandos de voz.  
 **Retos técnicos:** variabilidad en la calidad del audio y la precisión del reconocimiento.  
 **Mejoras posibles:** agregar soporte para múltiples idiomas y comandos personalizados.
+
+---
+
+### Evidencia gráfica
+![Video actividad 8](media/actividad-8/actividad_8.gif)
 
 ---
 ## 9. Interfaces multimodales (voz + gestos)
@@ -503,6 +510,13 @@ La simulación de EEG permite explorar patrones de actividad cerebral y su relac
 **Retos técnicos:** modelar adecuadamente la variabilidad de las señales EEG reales.  
 **Mejoras posibles:** integrar datos reales de EEG y aplicar técnicas de procesamiento de señales para análisis más profundos.
 
+---
+
+### Evidencia gráfica
+![Video actividad 10](media/actividad-10/actividad_10.gif)
+
+---
+
 ## 11. Espacios proyectivos y matrices de proyección
 ### 🎯 Concepto
 Simulación de proyecciones en 3D utilizando cámaras perspectiva y ortográfica para visualizar la diferencia entre ambas.
@@ -529,3 +543,9 @@ La comparación entre proyecciones perspectiva y ortográfica permite entender c
 **Aprendizajes:** manejo de diferentes tipos de cámaras en Three.js y su impacto visual.  
 **Retos técnicos:** optimización del rendimiento al alternar entre cámaras.  
 **Mejoras posibles:** agregar más geometrías y efectos visuales para enriquecer la experiencia.
+
+---
+
+### 📸 Evidencia gráfica
+
+![Video actividad 11](media/actividad-11/actividad_11.gif)
