@@ -1,0 +1,15 @@
+METRICAS DEL SUBSISTEMA MULTIMODAL
+========================================
+Duracion sesion: 10.0 segundos
+Frames procesados: 100
+FPS Promedio: 29.92
+FPS Minimo: 29.50
+FPS Maximo: 30.20
+Detecciones de voz: 5
+Detecciones de gestos: 3
+Cambios de EEG: 2
+
+MODALIDADES ACTIVAS:
+- Voz: Deteccion de colores y formas
+- Gestos: Pinch para activar/desactivar filtro
+- EEG: Simulacion con efectos visuales

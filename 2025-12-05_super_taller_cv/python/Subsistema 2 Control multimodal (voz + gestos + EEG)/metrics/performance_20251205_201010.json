@@ -1,0 +1,22 @@
+{
+  "session_duration": 1.9153931140899658,
+  "fps": {
+    "average": 18.6,
+    "min": 2.0916259243079782,
+    "max": 25.15535937050187,
+    "count": 4
+  },
+  "resources": {
+    "cpu_avg": 67.5,
+    "memory_avg": 80.0
+  },
+  "latencies": {
+    "voice_avg": 0,
+    "gesture_avg": 0
+  },
+  "detections": {
+    "voice": 0,
+    "gesture": 0,
+    "eeg_changes": 0
+  }
+}
