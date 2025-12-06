@@ -1,0 +1,605 @@
+{
+  "timestamp": "2025-12-05 19:24:41.534134",
+  "predictions": [
+    {
+      "index": 0,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314461529254913
+    },
+    {
+      "index": 1,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313993632793427
+    },
+    {
+      "index": 2,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314434707164764
+    },
+    {
+      "index": 3,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313679218292236
+    },
+    {
+      "index": 4,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314504742622375
+    },
+    {
+      "index": 5,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312691271305084
+    },
+    {
+      "index": 6,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314361691474915
+    },
+    {
+      "index": 7,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314401924610138
+    },
+    {
+      "index": 8,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131383717060089
+    },
+    {
+      "index": 9,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314802765846252
+    },
+    {
+      "index": 10,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131619155406952
+    },
+    {
+      "index": 11,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313072741031647
+    },
+    {
+      "index": 12,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314744651317596
+    },
+    {
+      "index": 13,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313239634037018
+    },
+    {
+      "index": 14,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314239501953125
+    },
+    {
+      "index": 15,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314530074596405
+    },
+    {
+      "index": 16,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312321722507477
+    },
+    {
+      "index": 17,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315445005893707
+    },
+    {
+      "index": 18,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314771473407745
+    },
+    {
+      "index": 19,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131112813949585
+    },
+    {
+      "index": 20,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313636004924774
+    },
+    {
+      "index": 21,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313421428203583
+    },
+    {
+      "index": 22,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314530074596405
+    },
+    {
+      "index": 23,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312914788722992
+    },
+    {
+      "index": 24,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314318478107452
+    },
+    {
+      "index": 25,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131427675485611
+    },
+    {
+      "index": 26,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313928067684174
+    },
+    {
+      "index": 27,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314571797847748
+    },
+    {
+      "index": 28,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314311027526855
+    },
+    {
+      "index": 29,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314065158367157
+    },
+    {
+      "index": 30,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131553292274475
+    },
+    {
+      "index": 31,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131403237581253
+    },
+    {
+      "index": 32,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313384175300598
+    },
+    {
+      "index": 33,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21316048502922058
+    },
+    {
+      "index": 34,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131473422050476
+    },
+    {
+      "index": 35,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315088868141174
+    },
+    {
+      "index": 36,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312905848026276
+    },
+    {
+      "index": 37,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314212679862976
+    },
+    {
+      "index": 38,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314196288585663
+    },
+    {
+      "index": 39,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314838528633118
+    },
+    {
+      "index": 40,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131461352109909
+    },
+    {
+      "index": 41,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131427526473999
+    },
+    {
+      "index": 42,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313698589801788
+    },
+    {
+      "index": 43,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314962208271027
+    },
+    {
+      "index": 44,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313653886318207
+    },
+    {
+      "index": 45,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.213148295879364
+    },
+    {
+      "index": 46,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313850581645966
+    },
+    {
+      "index": 47,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315866708755493
+    },
+    {
+      "index": 48,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315144002437592
+    },
+    {
+      "index": 49,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131510078907013
+    },
+    {
+      "index": 50,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312332153320312
+    },
+    {
+      "index": 51,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314147114753723
+    },
+    {
+      "index": 52,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312828361988068
+    },
+    {
+      "index": 53,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314014494419098
+    },
+    {
+      "index": 54,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314279735088348
+    },
+    {
+      "index": 55,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.213154137134552
+    },
+    {
+      "index": 56,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314623951911926
+    },
+    {
+      "index": 57,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312810480594635
+    },
+    {
+      "index": 58,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131272554397583
+    },
+    {
+      "index": 59,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312987804412842
+    },
+    {
+      "index": 60,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.213156595826149
+    },
+    {
+      "index": 61,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131536602973938
+    },
+    {
+      "index": 62,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315111219882965
+    },
+    {
+      "index": 63,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131364494562149
+    },
+    {
+      "index": 64,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314284205436707
+    },
+    {
+      "index": 65,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314166486263275
+    },
+    {
+      "index": 66,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313907206058502
+    },
+    {
+      "index": 67,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312938630580902
+    },
+    {
+      "index": 68,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315288543701172
+    },
+    {
+      "index": 69,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314339339733124
+    },
+    {
+      "index": 70,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131408005952835
+    },
+    {
+      "index": 71,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313579380512238
+    },
+    {
+      "index": 72,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21312975883483887
+    },
+    {
+      "index": 73,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131378948688507
+    },
+    {
+      "index": 74,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313850581645966
+    },
+    {
+      "index": 75,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315808594226837
+    },
+    {
+      "index": 76,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21317465603351593
+    },
+    {
+      "index": 77,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314676105976105
+    },
+    {
+      "index": 78,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314972639083862
+    },
+    {
+      "index": 79,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21317555010318756
+    },
+    {
+      "index": 80,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313542127609253
+    },
+    {
+      "index": 81,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315187215805054
+    },
+    {
+      "index": 82,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131175398826599
+    },
+    {
+      "index": 83,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314434707164764
+    },
+    {
+      "index": 84,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313798427581787
+    },
+    {
+      "index": 85,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21315570175647736
+    },
+    {
+      "index": 86,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313536167144775
+    },
+    {
+      "index": 87,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131534069776535
+    },
+    {
+      "index": 88,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21313922107219696
+    },
+    {
+      "index": 89,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131582647562027
+    },
+    {
+      "index": 90,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314409375190735
+    },
+    {
+      "index": 91,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131413221359253
+    },
+    {
+      "index": 92,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314232051372528
+    },
+    {
+      "index": 93,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131572812795639
+    },
+    {
+      "index": 94,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314166486263275
+    },
+    {
+      "index": 95,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131284922361374
+    },
+    {
+      "index": 96,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131611704826355
+    },
+    {
+      "index": 97,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131544053554535
+    },
+    {
+      "index": 98,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.21314629912376404
+    },
+    {
+      "index": 99,
+      "class": "Class_7",
+      "class_id": 7,
+      "confidence": 0.2131415158510208
+    }
+  ]
+}

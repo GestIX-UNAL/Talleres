@@ -1,0 +1,26 @@
+{
+  "Custom CNN": {
+    "accuracy": 0.12666666666666668,
+    "precision": 0.016044444444444445,
+    "recall": 0.12666666666666668,
+    "f1_score": 0.028481262327416174,
+    "model_type": "custom",
+    "timestamp": "2025-12-05 19:24:18.254435"
+  },
+  "ResNet50": {
+    "accuracy": 0.12333333333333334,
+    "precision": 0.015211111111111111,
+    "recall": 0.12333333333333334,
+    "f1_score": 0.027082096933728983,
+    "model_type": "resnet50",
+    "timestamp": "2025-12-05 19:24:32.132822"
+  },
+  "MobileNetV2": {
+    "accuracy": 0.12,
+    "precision": 0.014400000000000001,
+    "recall": 0.12,
+    "f1_score": 0.02571428571428571,
+    "model_type": "mobilenetv2",
+    "timestamp": "2025-12-05 19:24:38.945966"
+  }
+}
