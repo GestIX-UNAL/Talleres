@@ -5,6 +5,7 @@
   <title>AR.js Image Tracking + Three.js</title>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js"></script>
   
   <style>
@@ -69,18 +70,54 @@
   const markerRoot = new THREE.Group();
   scene.add(markerRoot);
 
+  // Agregar iluminación para ver los colores del modelo
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  markerRoot.add(ambientLight);
+  
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+  directionalLight.position.set(0, 5, 5);
+  markerRoot.add(directionalLight);
+
   const markerControls = new THREEx.ArMarkerControls(arContext, markerRoot, {
     type: "pattern",
     patternUrl: "https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro"
   });
 
-  // Objeto 3D
-  const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1,1,1),
-    new THREE.MeshNormalMaterial()
+  // Cargar modelo 3D Spider.glb
+  let spiderModel = null;
+  let mixer = null;
+  const clock = new THREE.Clock();
+  const loader = new THREE.GLTFLoader();
+  
+  loader.load(
+    './assets/Spider.glb',
+    (gltf) => {
+      spiderModel = gltf.scene;
+      const scale = 0.3;
+      spiderModel.scale.set(scale, scale, scale); // Ajustar escala
+      spiderModel.position.y = 0;
+      markerRoot.add(spiderModel);
+      
+      // Configurar animaciones
+      if (gltf.animations && gltf.animations.length > 0) {
+        mixer = new THREE.AnimationMixer(spiderModel);
+        // Reproducir todas las animaciones
+        gltf.animations.forEach((clip) => {
+          const action = mixer.clipAction(clip);
+          action.play();
+        });
+        console.log('Spider animations loaded:', gltf.animations.length);
+      }
+      
+      console.log('Spider model loaded successfully');
+    },
+    (progress) => {
+      console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
+    },
+    (error) => {
+      console.error('Error loading Spider model:', error);
+    }
   );
-  cube.position.y = 0.5;
-  markerRoot.add(cube);
 
   // Animación y lógica de interacción
   function animate() {
@@ -90,12 +127,10 @@
       arContext.update(arSource.domElement);
     }
 
-    // Interacción + animación
-    if (markerRoot.visible) {
-      cube.rotation.y += 0.03;          // animación
-      cube.scale.set(1.2, 1.2, 1.2);     // interacción básica
-    } else {
-      cube.scale.set(1, 1, 1);
+    // Actualizar animaciones del modelo
+    const delta = clock.getDelta();
+    if (mixer && markerRoot.visible) {
+      mixer.update(delta);
     }
 
     renderer.render(scene, camera);

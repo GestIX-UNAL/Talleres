@@ -60,6 +60,10 @@
 yyyy-mm-dd_super_taller_cv/
 ├── unity/                                    ✅
 ├── threejs/                                  ✅
+│   ├── index.html                            ✅
+│   ├── assets/                               ✅
+│   │   └── Spider.glb                        ✅
+│   └── README.md                             ✅
 ├── python/                                   ✅
 │   ├── detection/                            ✅ (placeholder)
 │   ├── training/                             ✅
