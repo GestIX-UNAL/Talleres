@@ -1,5 +1,7 @@
 # Subsistema 3: Visualización 3D optimizada (Three.js + AR.js)
 
+![screenrecording of AR demo](submodulo-3.gif)
+
 * Escena principal en Three.js / React Three Fiber con overlays dinámicos.
 * Implementación de modelos 3D interactivos o animados.
 * Integración AR.js con marcadores personalizados.
