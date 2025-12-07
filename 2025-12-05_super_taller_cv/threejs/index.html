@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AR.js Image Tracking + Three.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js"></script>
+  
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    canvas { position: fixed; top: 0; left: 0; }
+  </style>
+</head>
+
+<body>
+<script>
+  // Escena y cámara
+  const scene = new THREE.Scene();
+  const camera = new THREE.Camera();
+  scene.add(camera);
+
+  // Renderer transparente (para mostrar video detrás)
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  document.body.appendChild(renderer.domElement);
+
+  // Fuente AR (webcam)
+  const arSource = new THREEx.ArToolkitSource({ sourceType: 'webcam' });
+  arSource.init(() => {
+    styleCameraFeed();
+    onResize();
+  });
+  window.addEventListener('resize', onResize);
+
+  function styleCameraFeed() {
+    const video = arSource.domElement;
+    if (!video) return;
+    video.style.position = 'fixed';
+    video.style.top = '0';
+    video.style.left = '0';
+    video.style.width = '100vw';
+    video.style.height = '100vh';
+    video.style.objectFit = 'cover';      // fill screen without distortion
+    video.style.zIndex = '-1';             // keep renderer on top
+    video.setAttribute('playsinline', 'true');
+  }
+
+  function onResize() {
+    arSource.onResizeElement();
+    arSource.copyElementSizeTo(renderer.domElement);
+    if (arContext.arController) {
+      arSource.copyElementSizeTo(arContext.arController.canvas);
+    }
+  }
+
+  // Contexto AR
+  const arContext = new THREEx.ArToolkitContext({
+    cameraParametersUrl: "https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat",
+    detectionMode: "mono_and_matrix"
+  });
+
+  arContext.init(() => {
+    camera.projectionMatrix.copy(arContext.getProjectionMatrix());
+  });
+
+  // Marcador basado en patrón (usa el marcador Hiro por defecto)
+  const markerRoot = new THREE.Group();
+  scene.add(markerRoot);
+
+  const markerControls = new THREEx.ArMarkerControls(arContext, markerRoot, {
+    type: "pattern",
+    patternUrl: "https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro"
+  });
+
+  // Objeto 3D
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(1,1,1),
+    new THREE.MeshNormalMaterial()
+  );
+  cube.position.y = 0.5;
+  markerRoot.add(cube);
+
+  // Animación y lógica de interacción
+  function animate() {
+    requestAnimationFrame(animate);
+
+    if (arSource.ready) {
+      arContext.update(arSource.domElement);
+    }
+
+    // Interacción + animación
+    if (markerRoot.visible) {
+      cube.rotation.y += 0.03;          // animación
+      cube.scale.set(1.2, 1.2, 1.2);     // interacción básica
+    } else {
+      cube.scale.set(1, 1, 1);
+    }
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+</script>
+</body>
+</html>
