@@ -5,6 +5,9 @@
 * Integración AR.js con marcadores personalizados.
 * En Unity: cinemática directa (FK), inversa (IK), colisiones, partículas y transiciones animadas.
 
+## Marcadores personallizados
+
+Uamos https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html para personalizar el marcador AR. 
 
 ## Modelos animados
 

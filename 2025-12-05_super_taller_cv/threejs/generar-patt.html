@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Generar archivo .patt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .instructions {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .link {
+      background: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 10px 0;
+    }
+    .link:hover {
+      background: #45a049;
+    }
+    code {
+      background: #e0e0e0;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📋 Generar archivo .patt para AR.js</h1>
+  
+  <div class="instructions">
+    <h2>Opción 1: Herramienta Online Oficial (Recomendado)</h2>
+    <ol>
+      <li>Abre la herramienta oficial de AR.js:
+        <br><a class="link" href="https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html" target="_blank">
+          🔗 AR.js Marker Training
+        </a>
+      </li>
+      <li>Sube tu imagen <code>mi-marcador.png</code></li>
+      <li>Ajusta el marcador en el cuadro (debe estar dentro del borde negro)</li>
+      <li>Click en "Download Marker" para descargar el archivo <code>.patt</code></li>
+      <li>Guarda el archivo como <code>mi-marcador.patt</code> en la carpeta <code>assets/</code></li>
+    </ol>
+  </div>
+
+  <div class="instructions">
+    <h2>Opción 2: Usar Barcode Marker (Más Simple)</h2>
+    <p>En lugar de crear un .patt, puedes usar marcadores de tipo "barcode" que son más fáciles:</p>
+    <ol>
+      <li>Descarga e imprime un marcador barcode:
+        <br><a class="link" href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/pattern-marker.png" target="_blank">
+          🔗 Pattern Marker (Hiro)
+        </a>
+      </li>
+      <li>O genera marcadores barcode personalizados:
+        <br><a class="link" href="https://ar-js-org.github.io/AR.js-Docs/marker-based/" target="_blank">
+          🔗 AR.js Barcode Generator
+        </a>
+      </li>
+    </ol>
+  </div>
+
+  <div class="instructions">
+    <h2>📝 Nota Importante</h2>
+    <p>Una vez que tengas el archivo <code>mi-marcador.patt</code>:</p>
+    <ul>
+      <li>Guárdalo en <code>assets/mi-marcador.patt</code></li>
+      <li>El código ya está configurado para usarlo</li>
+      <li>Imprime la imagen original <code>mi-marcador.png</code> con un borde negro alrededor</li>
+    </ul>
+  </div>
+</body>
+</html>

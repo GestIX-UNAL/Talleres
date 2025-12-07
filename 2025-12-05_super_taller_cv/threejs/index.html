@@ -6,7 +6,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex.js"></script>
   
   <style>
     html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
@@ -21,67 +21,30 @@
   const camera = new THREE.Camera();
   scene.add(camera);
 
-  // Renderer transparente (para mostrar video detrás)
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({ 
+    alpha: true, 
+    antialias: true,
+    logarithmicDepthBuffer: true
+  });
+  renderer.setClearColor(new THREE.Color('lightgrey'), 0);
+  renderer.setSize(640, 480);
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0px';
+  renderer.domElement.style.left = '0px';
   document.body.appendChild(renderer.domElement);
 
-  // Fuente AR (webcam)
-  const arSource = new THREEx.ArToolkitSource({ sourceType: 'webcam' });
-  arSource.init(() => {
-    styleCameraFeed();
-    onResize();
-  });
-  window.addEventListener('resize', onResize);
-
-  function styleCameraFeed() {
-    const video = arSource.domElement;
-    if (!video) return;
-    video.style.position = 'fixed';
-    video.style.top = '0';
-    video.style.left = '0';
-    video.style.width = '100vw';
-    video.style.height = '100vh';
-    video.style.objectFit = 'cover';      // fill screen without distortion
-    video.style.zIndex = '-1';             // keep renderer on top
-    video.setAttribute('playsinline', 'true');
-  }
-
-  function onResize() {
-    arSource.onResizeElement();
-    arSource.copyElementSizeTo(renderer.domElement);
-    if (arContext.arController) {
-      arSource.copyElementSizeTo(arContext.arController.canvas);
-    }
-  }
-
-  // Contexto AR
-  const arContext = new THREEx.ArToolkitContext({
-    cameraParametersUrl: "https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat",
-    detectionMode: "mono_and_matrix"
-  });
-
-  arContext.init(() => {
-    camera.projectionMatrix.copy(arContext.getProjectionMatrix());
-  });
-
-  // Marcador basado en patrón (usa el marcador Hiro por defecto)
-  const markerRoot = new THREE.Group();
-  scene.add(markerRoot);
+  // Configuración NFT
+  let root = new THREE.Object3D();
+  scene.add(root);
 
   // Agregar iluminación para ver los colores del modelo
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-  markerRoot.add(ambientLight);
+  root.add(ambientLight);
   
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
   directionalLight.position.set(0, 5, 5);
-  markerRoot.add(directionalLight);
-
-  const markerControls = new THREEx.ArMarkerControls(arContext, markerRoot, {
-    type: "pattern",
-    patternUrl: "https://raw.githack.com/AR-js-org/AR.js/master/data/data/patt.hiro"
-  });
+  root.add(directionalLight);
 
   // Cargar modelo 3D Spider.glb
   let spiderModel = null;
@@ -93,15 +56,16 @@
     './assets/Spider.glb',
     (gltf) => {
       spiderModel = gltf.scene;
-      const scale = 0.3;
-      spiderModel.scale.set(scale, scale, scale); // Ajustar escala
+      const scale = 1; // Escala para marcador de patrón
+      spiderModel.scale.set(scale, scale, scale);
       spiderModel.position.y = 0;
-      markerRoot.add(spiderModel);
+      spiderModel.position.x = 0;
+      spiderModel.position.z = 0;
+      root.add(spiderModel);
       
       // Configurar animaciones
       if (gltf.animations && gltf.animations.length > 0) {
         mixer = new THREE.AnimationMixer(spiderModel);
-        // Reproducir todas las animaciones
         gltf.animations.forEach((clip) => {
           const action = mixer.clipAction(clip);
           action.play();
@@ -119,17 +83,55 @@
     }
   );
 
-  // Animación y lógica de interacción
+  // Inicializar ARjs NFT
+  const arToolkitSource = new THREEx.ArToolkitSource({
+    sourceType: 'webcam',
+  });
+
+  arToolkitSource.init(function onReady() {
+    onResize();
+  });
+
+  window.addEventListener('resize', function() {
+    onResize();
+  });
+
+  function onResize() {
+    arToolkitSource.onResizeElement();
+    arToolkitSource.copyElementSizeTo(renderer.domElement);
+    if (arToolkitContext.arController !== null) {
+      arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+    }
+  }
+
+  const arToolkitContext = new THREEx.ArToolkitContext({
+    cameraParametersUrl: 'https://raw.githack.com/AR-js-org/AR.js/master/data/data/camera_para.dat',
+    detectionMode: 'mono_and_matrix'
+  });
+
+  arToolkitContext.init(function onCompleted() {
+    camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+  });
+
+  // Configurar marcador con patrón personalizado
+  const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, root, {
+    type: 'pattern',
+    patternUrl: 'assets/pattern-mi-marcador.patt'
+  });
+
+  root.visible = false;
+
+  // Animación
   function animate() {
     requestAnimationFrame(animate);
 
-    if (arSource.ready) {
-      arContext.update(arSource.domElement);
+    if (arToolkitSource.ready !== false) {
+      arToolkitContext.update(arToolkitSource.domElement);
     }
 
     // Actualizar animaciones del modelo
     const delta = clock.getDelta();
-    if (mixer && markerRoot.visible) {
+    if (mixer && root.visible) {
       mixer.update(delta);
     }
 
@@ -137,6 +139,7 @@
   }
 
   animate();
+
 </script>
 </body>
 </html>
