@@ -5,7 +5,7 @@
   <title>AR.js Image Tracking + Three.js</title>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="lib/GLTFLoader.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex.js"></script>
   
   <style>
@@ -28,7 +28,7 @@
     logarithmicDepthBuffer: true
   });
   renderer.setClearColor(new THREE.Color('lightgrey'), 0);
-  renderer.setSize(640, 480);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.domElement.style.position = 'absolute';
   renderer.domElement.style.top = '0px';
   renderer.domElement.style.left = '0px';
@@ -46,42 +46,47 @@
   directionalLight.position.set(0, 5, 5);
   root.add(directionalLight);
 
-  // Cargar modelo 3D Spider.glb
+  // Cargar modelo 3D Spider.glb con manejo especial
   let spiderModel = null;
   let mixer = null;
   const clock = new THREE.Clock();
   const loader = new THREE.GLTFLoader();
   
-  loader.load(
-    './assets/Spider.glb',
-    (gltf) => {
-      spiderModel = gltf.scene;
-      const scale = 1; // Escala para marcador de patrón
-      spiderModel.scale.set(scale, scale, scale);
-      spiderModel.position.y = 0;
-      spiderModel.position.x = 0;
-      spiderModel.position.z = 0;
-      root.add(spiderModel);
-      
-      // Configurar animaciones
-      if (gltf.animations && gltf.animations.length > 0) {
-        mixer = new THREE.AnimationMixer(spiderModel);
-        gltf.animations.forEach((clip) => {
-          const action = mixer.clipAction(clip);
-          action.play();
-        });
-        console.log('Spider animations loaded:', gltf.animations.length);
-      }
-      
-      console.log('Spider model loaded successfully');
-    },
-    (progress) => {
-      console.log('Loading progress:', (progress.loaded / progress.total * 100) + '%');
-    },
-    (error) => {
+  // Cargar como ArrayBuffer primero
+  fetch('assets/Spider_backup.glb')
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => {
+      loader.parse(arrayBuffer, '', (gltf) => {
+        spiderModel = gltf.scene;
+        const scale = 0.3;
+        spiderModel.scale.set(scale, scale, scale);
+        spiderModel.position.y = 0;
+        spiderModel.position.x = 0;
+        spiderModel.position.z = 0;
+        //spiderModel.rotation.y = Math.PI / 2;
+        root.add(spiderModel);
+        
+        // Configurar animaciones
+        if (gltf.animations && gltf.animations.length > 0) {
+          mixer = new THREE.AnimationMixer(spiderModel);
+          const idleClip = gltf.animations.find(clip => clip.name === 'SpiderArmature|Spider_Attack');
+          if (idleClip) {
+            const action = mixer.clipAction(idleClip);
+            action.play();
+            console.log('Idle animation loaded and playing');
+          } else {
+            console.log('Idle animation not found. Available animations:', gltf.animations.map(a => a.name));
+          }
+        }
+        
+        console.log('Spider model loaded successfully');
+      }, (error) => {
+        console.error('Error parsing Spider model:', error);
+      });
+    })
+    .catch(error => {
       console.error('Error loading Spider model:', error);
-    }
-  );
+    });
 
   // Inicializar ARjs NFT
   const arToolkitSource = new THREEx.ArToolkitSource({
@@ -101,6 +106,21 @@
     arToolkitSource.copyElementSizeTo(renderer.domElement);
     if (arToolkitContext.arController !== null) {
       arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+    }
+    
+    // Forzar el tamaño completo del viewport
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    // Hacer que el video de fondo cubra toda la pantalla
+    const video = arToolkitSource.domElement;
+    if (video) {
+      video.style.position = 'fixed';
+      video.style.top = '0';
+      video.style.left = '0';
+      video.style.width = '100vw';
+      video.style.height = '100vh';
+      video.style.objectFit = 'cover';
+      video.style.zIndex = '-1';
     }
   }
 
